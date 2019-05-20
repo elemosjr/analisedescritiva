@@ -1,0 +1,15 @@
+Package: analisedescritiva
+Type: Package
+Title: Auxilia na realizacao de graficos para analises descritivas
+Version: 0.1
+Author: Eduardo Lemos Junior
+Maintainer: Eduardo Lemos Junior <elemosjr@gmail.com>
+Description: Este pacote gera graficos de varias variaveis em um dado dataframe em cada uma de suas funcoes.
+Encoding: UTF-8
+License: GPL-2
+LazyData: FALSE
+Imports:
+  ggplot2,gridExtra
+Suggests:
+  dplyr
+RoxygenNote: 6.1.1
