@@ -10,6 +10,8 @@
 #'
 #'@examples grid_list(list(qplot(mpg, wt, mtcars), qplot(factor(cyl), wt, mtcars)), grid = TRUE)
 #'
+#'@import gridExtra
+#'
 #'@export
 
 grid_list <- function(lista)

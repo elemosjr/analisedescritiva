@@ -32,6 +32,8 @@
 #'
 #'@examples conjunta_bar_cd(iris)
 #'
+#'@import ggplot2
+#'
 #'@export
 
 boxplot_continuas <- function(df,

@@ -1,0 +1,36 @@
+---
+output: github_document
+---
+
+<!-- README.md foi gerado por README.Rmd -->
+
+```{r, echo = FALSE}
+knitr::opts_chunk$set(
+  dev = "png",
+  dpi = 144,
+  warning = FALSE,
+  message = FALSE,
+  error = FALSE,
+  collapse = TRUE,
+  comment = "#>",
+  fig.path = "man/figures/README-"
+)
+```
+
+# Análise Descritiva
+Pacote de R para análise descritiva.
+
+## Instalação
+```{r, eval = FALSE}
+install.packages("devtools")
+devtools::install_github("elemosjr/analisedescritiva")
+```
+
+## Exemplos
+
+```{r, example}
+library(analisedescritiva)
+
+conjunta_bar_cd(iris)
+```
+

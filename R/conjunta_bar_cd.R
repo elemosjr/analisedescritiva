@@ -22,6 +22,8 @@
 #'
 #'@examples conjunta_bar_cd(iris)
 #'
+#'@import ggplot2
+#'
 #'@export
 
 conjunta_bar_cd <- function(df,

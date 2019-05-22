@@ -22,6 +22,8 @@
 #'
 #'@examples conjunta_scat_cc(iris)
 #'
+#'@import ggplot2
+#'
 #'@export
 
 conjunta_scat_cc <- function(df,

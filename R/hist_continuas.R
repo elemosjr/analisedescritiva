@@ -24,6 +24,8 @@
 #'
 #'@examples conjunta_bar_cd(iris)
 #'
+#'@import ggplot2
+#'
 #'@export
 
 hist_continuas <- function(df,
