@@ -28,7 +28,7 @@
 #'
 #'@export
 
-conjunta_bar_cd <- function(df,
+conjunta_cd <- function(df,
                         grid = TRUE,
                         axis = FALSE,
                         plot_type = "bar",
