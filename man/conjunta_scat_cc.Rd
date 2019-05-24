@@ -4,9 +4,9 @@
 \alias{conjunta_scat_cc}
 \title{Gera varios scatterplots com variaveis de um dataframe}
 \usage{
-conjunta_scat_cc(df, grid = TRUE, axis = FALSE, point_size = 0.5,
-  point_shape = 1, point_color = "black", point_alpha = 0.8,
-  point_position = "identity")
+conjunta_scat_cc(df, grid = TRUE, axis = FALSE, size = 0.5,
+  shape = 1, col = "black", alpha = 0.8, position = "identity",
+  add = NULL, na.rm = FALSE)
 }
 \arguments{
 \item{df}{}
@@ -15,15 +15,17 @@ conjunta_scat_cc(df, grid = TRUE, axis = FALSE, point_size = 0.5,
 
 \item{axis}{= FALSE}
 
-\item{point_size}{= 0.5}
+\item{size}{= 0.5}
 
-\item{point_shape}{= 1}
+\item{shape}{= 1}
 
-\item{point_color}{= "black"}
+\item{col}{= "black"}
 
-\item{point_alpha}{= 0.8}
+\item{alpha}{= 0.8}
 
-\item{point_position}{= "identity"}
+\item{position}{= "identity"}
+
+\item{theme}{= NULL}
 }
 \value{
 plot

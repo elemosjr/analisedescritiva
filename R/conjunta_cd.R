@@ -28,12 +28,12 @@
 #'
 #'@export
 
-conjunta_bar_cd <- function(df,
+conjunta_cd <- function(df,
                         grid = TRUE,
-                        axis = FALSE,
                         plot_type = "bar",
-                        aes_fill = FALSE,
                         coord_flip = FALSE,
+                        axis = FALSE,
+                        aes_fill = FALSE,
                         col = "black",
                         fill = "gray30",
                         alpha = 1,
@@ -41,8 +41,14 @@ conjunta_bar_cd <- function(df,
                         box_position = "dodge2",
                         violin_position = "dodge",
                         box_stat = "boxplot",
-                        violin_stat = "ydensity",
-                        theme = NULL)
+                        violin_stat = "ydensity",                           outlier.color = NULL,
+                        outlier.fill = NULL,
+                        outlier.shape = 19,
+                        outlier.size = 1.5,
+                        notch = FALSE,
+                        notchwidth =0.5,
+                        add = NULL,
+                        na.rm = FALSE)
 {
   cols <- names(df)
   lista <- list()
@@ -51,7 +57,7 @@ conjunta_bar_cd <- function(df,
 
   for(i in 1:length(cols))
   {  
-    if(is.numeric(df[[i]][[1]]) | is.double(df[[i]][[1]]))
+    if(is.numeric(df[[i]]) | is.double(df[[i]]))
     {
       varsc <- c(varsc, names(df)[i])
     }
@@ -65,7 +71,7 @@ conjunta_bar_cd <- function(df,
   
   for(i in 1:length(cols))
   {
-    if(is.character(df[[i]][[1]]) | is.factor(df[[i]][[1]]))
+    if(is.character(df[[i]]) | is.factor(df[[i]]))
     {
       varsd <- c(varsd, names(df)[i])
     }
@@ -92,16 +98,18 @@ conjunta_bar_cd <- function(df,
                                    y = as.character(comb[i,2]),
                                    fill = as.character(comb[i,1])))+
           geom_col(alpha = alpha,
-                   position = bar_position)+
-          theme
+                   position = bar_position,
+                   na.rm = na.rm)+
+          add
       } else
       {
         p <- ggplot(df, aes_string(x = as.character(comb[i,1]),
                                    y = as.character(comb[i,2])))+
           geom_col(alpha = alpha,
                    fill = fill,
-                   position = bar_position)+
-          theme
+                   position = bar_position,
+                   na.rm = na.rm)+
+          add
       }
     } else if(plot_type == "boxplot" | plot_type == "box")
     {
@@ -111,12 +119,14 @@ conjunta_bar_cd <- function(df,
                      fill = fill,
                      alpha = alpha,
                      position = box_position,
+                     stat = box_stat,
                      outlier.color = outlier.color,
                      outlier.fill = outlier.fill,
                      outlier.shape = outlier.shape,
                      outlier.size = outlier.size,
-                     notch = notch)+
-        theme
+                     notch = notch,
+                     na.rm = na.rm)+
+        add
     } else if(plot_type == "violin" | plot_type == "viol")
     {
       p <- ggplot(df, aes_string(x = as.character(comb[i,1]),
@@ -125,8 +135,9 @@ conjunta_bar_cd <- function(df,
                     fill = fill,
                     alpha = alpha,
                     position = violin_position,
-                    stat = violin_stat)+
-        theme
+                    stat = violin_stat,
+                    na.rm = na.rm)+
+        add
     }
     
     if(coord_flip == TRUE)

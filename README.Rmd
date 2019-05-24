@@ -4,7 +4,7 @@ output: github_document
 
 <!-- README.md foi gerado por README.Rmd -->
 
-```{r, echo = FALSE}
+```{r setup, echo = FALSE, include = FALSE}
 knitr::opts_chunk$set(
   dev = "png",
   dpi = 144,
@@ -15,6 +15,9 @@ knitr::opts_chunk$set(
   comment = "#>",
   fig.path = "man/figures/README-"
 )
+
+library(magrittr)
+library(ggplot2)
 ```
 
 # Análise Descritiva
@@ -31,7 +34,20 @@ devtools::install_github("elemosjr/analisedescritiva")
 ```{r, example}
 library(analisedescritiva)
 
-conjunta_bar_cd(iris)
+mapply(c, 
+       list(
+         plot_continuous(iris, plot_type = "hist", grid = FALSE),
+         plot_continuous(iris, plot_type = "density", grid = FALSE),
+         plot_continuous(iris, plot_type = "box", grid = FALSE, 
+                         coord_flip= TRUE),
+         plot_continuous(iris, plot_type = "violin", grid = FALSE, 
+                         coord_flip = TRUE, 
+                         add = geom_boxplot(aes(x = "x"),
+                                            width = 0.1, 
+                                            col = "black"))
+       ),
+       SIMPLIFY = TRUE)  %>%
+  grid_list()
 ```
 
 # To Do

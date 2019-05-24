@@ -31,12 +31,13 @@
 #'@export
 
 plot_continuous <- function(df,
-                           axis = FALSE,
                            grid = TRUE,
+                           plot_type = "density",
+                           coord_flip = FALSE,
+                           axis = FALSE,
                            col = "black",
                            fill = "gray40",
                            alpha = 1,
-                           plot_type = "density",
                            hist_position = "stack",
                            box_position = "dodge2",
                            violin_position = "dodge",
@@ -53,7 +54,7 @@ plot_continuous <- function(df,
                            outlier.size = 1.5,
                            notch = FALSE,
                            notchwidth = 0.5,
-                           theme = NULL,
+                           add = NULL,
                            na.rm = FALSE)
 {
   cols <- names(df)
@@ -84,7 +85,7 @@ plot_continuous <- function(df,
                        binwidth = binwidth,
                        bins = bins,
                        na.rm = na.rm)+
-        theme
+        add
     } else if(plot_type == "boxplot" | plot_type == "box")
     {
       p <- ggplot(df, aes_string(y = names(df)[i]))+
@@ -98,7 +99,7 @@ plot_continuous <- function(df,
                      outlier.size = outlier.size,
                      notch = notch,
                      na.rm = na.rm)+
-        theme
+        add
     } else if(plot_type == "violin" | plot_type == "viol")
     {
       p <- ggplot(df, aes_string(y = names(df)[i]))+
@@ -109,7 +110,7 @@ plot_continuous <- function(df,
                     position = violin_position,
                     stat = violin_stat,
                     na.rm = na.rm)+
-        theme
+        add
     } else if(plot_type == "density" | plot_type == "dens")
     {
       p <- ggplot(df, aes_string(x = names(df)[i]))+
@@ -119,10 +120,15 @@ plot_continuous <- function(df,
                     position = density_position,
                     stat = density_stat,
                     na.rm = na.rm)+
-        theme
+        add
     } else
     {
       p <- NULL
+    }
+    
+    if(coord_flip == TRUE)
+    {
+      p <- p + coord_flip()
     }
     
     if(axis == FALSE)

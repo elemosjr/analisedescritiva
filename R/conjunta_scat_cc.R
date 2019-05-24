@@ -36,7 +36,8 @@ conjunta_scat_cc <- function(df,
                         col = "black",
                         alpha = 0.8,
                         position = "identity",
-                        theme = NULL)
+                        add = NULL,
+                        na.rm = FALSE)
 {
   cols <- names(df)
   lista <- list()
@@ -75,8 +76,9 @@ conjunta_scat_cc <- function(df,
                  shape = shape, 
                  col = col, 
                  alpha = alpha,
-                 position = position)+
-      theme
+                 position = position,
+                 na.rm = na.rm)+
+      add
 
   
     if(axis == FALSE)

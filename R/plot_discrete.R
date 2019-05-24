@@ -1,4 +1,4 @@
-#'@title Barra Variaveis Discretas
+#'@title Plot Discrete
 #'
 #'@description Retorna uma lista de graficos
 #'
@@ -31,17 +31,17 @@
 #'
 #'@export
 
-bar_discretas <- function(data,
+plot_discrete <- function(data,
                           grid = TRUE,
+                          coord_flip = FALSE,
                           axis = FALSE,
                           factors = NULL,
                           aes_fill = FALSE,
-                          coord_flip = FALSE,
                           col = "black",
                           fill = "gray40",
                           alpha = 1,
                           position = "dodge",
-                          theme = NULL)
+                          add = NULL)
 {
   
   if(is.null(factors))
@@ -83,7 +83,7 @@ bar_discretas <- function(data,
         geom_bar(col = col,
                  alpha = alpha,
                  position = position)+
-        theme
+        add
     } else
     {
       p <- ggplot(df, aes_string(x = names(df)[i]))+
@@ -91,7 +91,7 @@ bar_discretas <- function(data,
                  fill = fill,
                  alpha = alpha,
                  position = position)+
-        theme
+        add
     }
     
     if(coord_flip == TRUE)

@@ -17,7 +17,20 @@ devtools::install_github("elemosjr/analisedescritiva")
 ``` r
 library(analisedescritiva)
 
-conjunta_bar_cd(iris)
+mapply(c, 
+       list(
+         plot_continuous(iris, plot_type = "hist", grid = FALSE),
+         plot_continuous(iris, plot_type = "density", grid = FALSE),
+         plot_continuous(iris, plot_type = "box", grid = FALSE, 
+                         coord_flip= TRUE),
+         plot_continuous(iris, plot_type = "violin", grid = FALSE, 
+                         coord_flip = TRUE, 
+                         add = geom_boxplot(aes(x = "x"),
+                                            width = 0.1, 
+                                            col = "black"))
+       ),
+       SIMPLIFY = TRUE)  %>%
+  grid_list()
 ```
 
 ![](man/figures/README-example-1.png)<!-- -->

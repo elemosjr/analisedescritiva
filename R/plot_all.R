@@ -48,11 +48,11 @@
 
 plot_all <- function(df,
                      grid = TRUE,
+                     num_plot = "density",
+                     coord_flip = FALSE,
                      axis = FALSE,
                      aes_fill = FALSE,
                      order_data = TRUE,
-                     num_plot = "density",
-                     coord_flip = FALSE,
                      col = "black",
                      fill = "gray40",
                      alpha = 1,
@@ -73,6 +73,7 @@ plot_all <- function(df,
                      outlier.size = 1.5,
                      notch = FALSE,
                      notchwidth = 0.5,
+                     add = NULL,
                      na.rm = FALSE)
 {
   cols <- names(df)
@@ -82,7 +83,7 @@ plot_all <- function(df,
   
   for(i in 1:length(cols))
   {  
-    if(is.numeric(df[[i]][[1]]) | is.double(df[[i]][[1]]))
+    if(is.numeric(df[[i]]) | is.double(df[[i]]))
     {
       varsc <- c(varsc, i)
     }
@@ -90,13 +91,13 @@ plot_all <- function(df,
   
   if(is.null(varsc))
   {
-    stop("O dataframe nao tem variaveis continuas",
+    warning("O dataframe nao tem variaveis continuas",
          call. = FALSE)
   }
   
   for(i in 1:length(cols))
   {
-    if(is.character(df[[i]][[1]]) | is.factor(df[[i]][[1]]))
+    if(is.character(df[[i]]) | is.factor(df[[i]]))
     {
       varsd <- c(varsd, i)
     }
@@ -104,7 +105,7 @@ plot_all <- function(df,
   
   if(is.null(varsd))
   {
-    stop("O dataframe nao tem variaveis discretas",
+    warning("O dataframe nao tem variaveis discretas",
          call. = FALSE)
   }
   
@@ -117,7 +118,8 @@ plot_all <- function(df,
         geom_bar(col = col,
                  position = bar_position,
                  alpha = alpha,
-                 na.rm = na.rm)
+                 na.rm = na.rm)+
+        add
     } else
     {
       p <- ggplot(df, aes_string(x = names(df)[i]))+
@@ -125,7 +127,8 @@ plot_all <- function(df,
                  position = bar_position,
                  col = col,
                  alpha = alpha,
-                 na.rm = na.rm)
+                 na.rm = na.rm)+
+        add
     }
     
     if(coord_flip == TRUE)
@@ -146,9 +149,9 @@ plot_all <- function(df,
     
   }
   
-  if(num_plot == "boxplot" | num_plot == "box")
+  for(i in varsc)
   {
-    for(i in varsc)
+    if(num_plot == "boxplot" | num_plot == "box")
     {
       p <- ggplot(df, aes_string(y = names(df)[i]))+
         geom_boxplot(col = col,
@@ -161,27 +164,9 @@ plot_all <- function(df,
                      outlier.shape = outlier.shape,
                      outlier.size = outlier.size,
                      notch = notch,
-                     na.rm = na.rm)
-      
-      if(axis == FALSE)
-      {
-        p <- p+theme(axis.ticks.x = element_blank(),
-                     axis.text.x = element_blank(),
-                     axis.ticks.y = element_blank(),
-                     axis.text.y = element_blank(),
-                     legend.position = "none")
-      }
-      
-      if(coord_flip == TRUE)
-      {
-        p <- p+coord_flip()
-      }
-      
-      lista[[names(df)[i]]] <- p
-    }
-  } else if(num_plot == "histogram" | num_plot == "hist")
-  {
-    for(i in varsc)
+                     na.rm = na.rm)+
+        add
+    } else if(num_plot == "histogram" | num_plot == "hist")
     {
       p <- ggplot(df, aes_string(x = names(df)[i]))+
         geom_histogram(col = col,
@@ -191,27 +176,9 @@ plot_all <- function(df,
                        stat = hist_stat,
                        binwidth = binwidth,
                        bins = bins,
-                       na.rm = na.rm)
-      
-      if(axis == FALSE)
-      {
-        p <- p+theme(axis.ticks.x = element_blank(),
-                     axis.text.x = element_blank(),
-                     axis.ticks.y = element_blank(),
-                     axis.text.y = element_blank())
-      }
-      
-      if(coord_flip == TRUE)
-      {
-        p <- p+coord_flip()
-      }
-      
-      lista[[names(df)[i]]] <- p
-      
-    }
-  } else if(num_plot == "density")
-  {
-    for(i in varsc)
+                       na.rm = na.rm)+
+        add
+    } else if(num_plot == "density" | num_plot == "dens")
     {
       p <- ggplot(df, aes_string(x = names(df)[i]))+
         geom_density(fill = fill,
@@ -219,50 +186,50 @@ plot_all <- function(df,
                      position = density_position,
                      stat = density_stat,
                      alpha = alpha,
-                     na.rm = na.rm)
-      
-      if(axis == FALSE)
-      {
-        p <- p+theme(axis.ticks.x = element_blank(),
-                     axis.text.x = element_blank(),
-                     axis.ticks.y = element_blank(),
-                     axis.text.y = element_blank())
-      }
-      
-      if(coord_flip == TRUE)
-      {
-        p <- p+coord_flip()
-      }
-      
-      lista[[names(df)[i]]] <- p
-    }
-  } else if(num_plot == "violin" | num_plot == "viol")
-  {
-    for(i in varsc)
+                     na.rm = na.rm)+
+        add
+    } else if(num_plot == "violin" | num_plot == "viol")
     {
-      p <- ggplot(df, aes_string(x = names(df)[i]))+
-        geom_violin(fill = fill,
+      p <- ggplot(df, aes_string(y = names(df)[i]))+
+        geom_violin(aes(x = "x"),
+                    fill = fill,
                     col = col,
                     position = violin_position,
                     stat = violin_stat,
                     alpha = alpha,
-                    na.rm = na.rm)
-      
-      if(axis == FALSE)
-      {
-        p <- p+theme(axis.ticks.x = element_blank(),
-                     axis.text.x = element_blank(),
-                     axis.ticks.y = element_blank(),
-                     axis.text.y = element_blank())
-      }
-      
-      if(coord_flip == TRUE)
-      {
-        p <- p+coord_flip()
-      }
-      
-      lista[[names(df)[i]]] <- p
+                    na.rm = na.rm)+
+        coord_flip()+
+        add
+    } else if(num_plot == "violin" | num_plot == "viol")
+    {
+      p <- ggplot(df, aes_string(y = names(df)[i]))+
+        geom_violin(aes(x = "x"),
+                    fill = fill,
+                    col = col,
+                    position = violin_position,
+                    stat = violin_stat,
+                    alpha = alpha,
+                    na.rm = na.rm)+
+        coord_flip()+
+        add
     }
+    
+    
+    if(axis == FALSE)
+    {
+      p <- p+theme(axis.ticks.x = element_blank(),
+                   axis.text.x = element_blank(),
+                   axis.ticks.y = element_blank(),
+                   axis.text.y = element_blank())
+    }
+    
+    if(coord_flip == TRUE & 
+       !(plot_type == "viol" | plot_type == "violin"))
+    {
+      p <- p+coord_flip()
+    }
+    
+    lista[[names(df)[i]]] <- p
   }
   
   if(order_data == TRUE)
