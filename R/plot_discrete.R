@@ -31,7 +31,7 @@
 #'
 #'@export
 
-bar_discretas <- function(data,
+plot_discrete <- function(data,
                           grid = TRUE,
                           axis = FALSE,
                           factors = NULL,
