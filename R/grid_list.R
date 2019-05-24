@@ -2,13 +2,13 @@
 #'
 #'@description A partir de uma lista de graficos este pacote nos gera apenas um grafico com todos os contidos na lista.
 #'
-#'@details This function was suposedly made by Josh O'Brien. The code was shared in an answer at stackoverflow <https://stackoverflow.com/a/10706828>
+#'@details This code was taken from an answer from Josh O'Brien in stackoverflow <https://stackoverflow.com/a/10706828>
 #'
 #'@param lista
 #'
 #'@return plot
 #'
-#'@examples grid_list(list(qplot(mpg, wt, mtcars), qplot(factor(cyl), wt, mtcars)), grid = TRUE)
+#'@examples grid_list(list(qplot(mpg, wt, mtcars),qplot(factor(cyl), wt, mtcars)), grid = TRUE)
 #'
 #'@import gridExtra
 #'
