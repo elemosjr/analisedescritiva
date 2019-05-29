@@ -6,6 +6,9 @@ export(grid_list)
 export(plot_all)
 export(plot_continuous)
 export(plot_discrete)
+<<<<<<< HEAD
 import(dplyr)
+=======
+>>>>>>> d5d5cbea9ca3847f52f8e031012252f4b7aaad6d
 import(ggplot2)
 import(gridExtra)
