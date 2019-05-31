@@ -224,7 +224,7 @@ plot_all <- function(df,
     }
     
     if(coord_flip == TRUE & 
-       !(plot_type == "viol" | plot_type == "violin"))
+       !(num_plot == "viol" | num_plot == "violin"))
     {
       p <- p+coord_flip()
     }
