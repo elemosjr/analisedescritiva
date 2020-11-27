@@ -14,10 +14,9 @@
 #'
 #'@export
 
-grid_list <- function(lista)
+grid_list <- function(lista, nCol = NULL)
 {
   lista <- lista[!sapply(lista, is.null)]
-  n <- length(lista)
-  nCol <- floor(sqrt(n))
+  if(is.null(nCol)) nCol <- floor(sqrt(length(lista)))
   do.call("grid.arrange", c(lista, ncol = nCol))
 }
