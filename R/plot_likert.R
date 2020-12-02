@@ -23,7 +23,7 @@ plot_likert <- function(dados,
     if(is.null(descricao))
     {
       descricao <- sapply(seq_along(vars),
-                          function(x) paste(rep("‎", x), collapse = ""))
+                          function(x) paste(rep("\U2006", x), collapse = ""))
       names(descricao) <- vars
     }
     else
